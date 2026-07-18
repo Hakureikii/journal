@@ -20,7 +20,16 @@ class MyJournal extends StatefulWidget {
 class _MyJournalState extends State<MyJournal> {
   // VARIABLES
 
-  // bool switchState = false;
+  final List<String> moods = [
+    'All Moods',
+    'Joyful',
+    'Calm',
+    'Grateful',
+    'Unsettled',
+    'Gentle',
+    'Radiant',
+  ];
+  String _selectedMood = 'All Moods';
   bool isStarred = false;
   final ScrollController _scrollController = ScrollController();
   String _selectedCategory = 'All';
@@ -120,104 +129,186 @@ class _MyJournalState extends State<MyJournal> {
                   color: Colors.white,
                   width: double.infinity,
                   height: 200,
-                  child: Column(
-                    children: [
-                      const SizedBox(height: 10),
-
-                      JakartaText(
-                        text: 'Categories',
-                        fontSize: FontSize.subTitle,
-                        color: AppColors.darkPink,
-                        fontWeight: FontWeight.bold,
-                      ),
-
-                      const SizedBox(height: 10),
-
-                      Scrollbar(
-                        controller: _scrollController,
-                        thumbVisibility: true,
-                        child: SizedBox(
-                          height: 60,
-                          child: ListView(
-                            controller: _scrollController,
-                            padding: EdgeInsets.only(bottom: 12),
-                            scrollDirection: Axis.horizontal,
-                            children: _categories.map((category) {
-                              final isSelected = _selectedCategory == category;
-                              return Padding(
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: 4.0,
-                                ),
-                                child: ChoiceChip(
-                                  label: Text(category),
-                                  selected: isSelected,
-                                  onSelected: (selected) {
-                                    setState(() {
-                                      _selectedCategory = category;
-                                    });
-                                  },
-                                ),
-                              );
-                            }).toList(),
-                          ),
-                        ),
-                      ),
-
-                      SizedBox(
-                        width: double.infinity,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  child: SizedBox(
+                    width: double.infinity,
+                    height: double.infinity,
+                    child: Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: SizedBox(
+                        child: Column(
                           children: [
-                            OutlinedButton.icon(
-                              style: OutlinedButton.styleFrom(
-                                backgroundColor: !isStarred
-                                    ? Colors.white
-                                    : AppColors.transparentPink,
-                                side: const BorderSide(
-                                  width: 1.0,
+                            const SizedBox(height: 10),
+
+                            SizedBox(
+                              width: double.infinity,
+                              child: Padding(
+                                padding: const EdgeInsets.only(left: 8),
+                                child: JakartaText(
+                                  text: 'Categories',
+                                  fontSize: FontSize.subTitle,
                                   color: AppColors.darkPink,
+                                  fontWeight: FontWeight.bold,
                                 ),
                               ),
-
-                              onPressed: () {
-                                setState(() {
-                                  isStarred = !isStarred;
-                                  debugPrint('$isStarred');
-                                });
-                              },
-
-                              label: const JakartaText(
-                                text: 'Starred',
-                                fontSize: FontSize.texts,
-                                fontWeight: FontWeight.bold,
-                                color: AppColors.darkPink,
-                              ),
-
-                              icon: !isStarred
-                                  ? const Icon(
-                                      Icons.bookmark_border,
-                                      color: AppColors.darkPink,
-                                    )
-                                  : const Icon(
-                                      Icons.bookmark,
-                                      color: AppColors.darkPink,
-                                    ),
                             ),
 
-                            Row(
-                              children: [
-                                const JakartaText(
-                                  text: 'Moods:',
-                                  fontSize: FontSize.texts,
-                                  fontWeight: FontWeight.bold,
-                                  color: AppColors.darkPink,
+                            const SizedBox(height: 10),
+
+                            Scrollbar(
+                              controller: _scrollController,
+                              thumbVisibility: true,
+                              child: SizedBox(
+                                height: 60,
+                                child: ListView(
+                                  controller: _scrollController,
+                                  padding: EdgeInsets.only(bottom: 12),
+                                  scrollDirection: Axis.horizontal,
+                                  children: _categories.map((category) {
+                                    final isSelected =
+                                        _selectedCategory == category;
+                                    return Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                        horizontal: 4.0,
+                                      ),
+                                      child: ChoiceChip(
+                                        label: Text(category),
+                                        selected: isSelected,
+                                        onSelected: (selected) {
+                                          setState(() {
+                                            _selectedCategory = category;
+                                          });
+                                        },
+                                      ),
+                                    );
+                                  }).toList(),
                                 ),
-                              ],
+                              ),
+                            ),
+
+                            SizedBox(
+                              width: double.infinity,
+                              child: Padding(
+                                padding: const EdgeInsets.only(top: 8.0),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.only(left: 5.0),
+                                      child: OutlinedButton.icon(
+                                        style: OutlinedButton.styleFrom(
+                                          backgroundColor: !isStarred
+                                              ? Colors.white
+                                              : AppColors.transparentPink,
+                                          side: const BorderSide(
+                                            width: 1.0,
+                                            color: AppColors.darkPink,
+                                          ),
+                                        ),
+
+                                        onPressed: () {
+                                          setState(() {
+                                            isStarred = !isStarred;
+                                            debugPrint('$isStarred');
+                                          });
+                                        },
+
+                                        label: const JakartaText(
+                                          text: 'Starred',
+                                          fontSize: FontSize.texts,
+                                          fontWeight: FontWeight.bold,
+                                          color: AppColors.darkPink,
+                                        ),
+
+                                        icon: !isStarred
+                                            ? const Icon(
+                                                Icons.bookmark_border,
+                                                color: AppColors.darkPink,
+                                              )
+                                            : const Icon(
+                                                Icons.bookmark,
+                                                color: AppColors.darkPink,
+                                              ),
+                                      ),
+                                    ),
+
+                                    Row(
+                                      children: [
+                                        const JakartaText(
+                                          text: 'Moods:',
+                                          fontSize: FontSize.texts,
+                                          fontWeight: FontWeight.bold,
+                                          color: AppColors.darkPink,
+                                        ),
+
+                                        SizedBox(width: 8),
+
+                                        SizedBox(
+                                          width: 120,
+                                          height: 30,
+                                          child: DropdownButtonFormField(
+                                            value: _selectedMood,
+                                            icon: const Icon(
+                                              Icons.arrow_drop_down,
+                                              color: AppColors.pink,
+                                            ),
+                                            elevation: 16,
+                                            style: const TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: FontSize.texts,
+                                              fontFamily: 'PlusJakartaSans',
+                                              color: AppColors.pink,
+                                            ),
+
+                                            decoration: InputDecoration(
+                                              focusedBorder: OutlineInputBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(8),
+                                                borderSide: const BorderSide(
+                                                  color: AppColors
+                                                      .darkPink,
+                                                ),
+                                              ),
+                                              enabledBorder: OutlineInputBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(8),
+                                                borderSide: const BorderSide(
+                                                  color: AppColors.pink,
+                                                ),
+                                              ),
+                                              contentPadding:
+                                                  EdgeInsets.symmetric(
+                                                    horizontal: 7,
+                                                    vertical: 3,
+                                                  ),
+                                            ),
+
+                                            onChanged: (String? value) {
+                                              // This is called when the user selects an item.
+                                              setState(() {
+                                                _selectedMood = value!;
+                                              });
+                                            },
+                                            items: moods.map((String value) {
+                                              return DropdownMenuItem(
+                                                value: value,
+                                                child: Text(value),
+                                              );
+                                            }).toList(),
+                                          ),
+                                        ),
+
+                                        SizedBox(width: 8),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
                             ),
                           ],
                         ),
                       ),
-                    ],
+                    ),
                   ),
                 ),
               ],
