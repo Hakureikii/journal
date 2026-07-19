@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'widgets/texts.dart';
 import 'widgets/buttons.dart';
+import 'widgets/journal_card.dart';
 import 'utils/font_size.dart';
 import 'utils/colors.dart';
 
@@ -20,6 +21,36 @@ class MyJournal extends StatefulWidget {
 class _MyJournalState extends State<MyJournal> {
   // VARIABLES
 
+  final List<Map<String, dynamic>> journalEntries = [
+    {
+      'title': 'My First Journal Entry',
+      'content': 'This is the content of my first journal entry.',
+      'category': 'Personal',
+      'mood': 'Joyful',
+      'date': '07/15/2023',
+      'time': '10:30 AM',
+      'isStarred': true,
+    },
+    {
+      'title': 'A Calm Day',
+      'content': 'Today was a calm and peaceful day.',
+      'category': 'Reflection',
+      'mood': 'Calm',
+      'date': '07/16/2023',
+      'time': '02:15 PM',
+      'isStarred': false,
+    },
+    {
+      'title': 'Gratitude Journal',
+      'content': 'I am grateful for the little things in life.',
+      'category': 'Gratitude',
+      'mood': 'Grateful',
+      'date': '07/17/2023',
+      'time': '04:00 PM',
+      'isStarred': true,
+    },
+  ];
+
   final List<String> moods = [
     'All Moods',
     'Joyful',
@@ -31,6 +62,7 @@ class _MyJournalState extends State<MyJournal> {
   ];
   String _selectedMood = 'All Moods';
   bool isStarred = false;
+  bool isSelected = false;
   final ScrollController _scrollController = ScrollController();
   String _selectedCategory = 'All';
   final List<String> _categories = [
@@ -247,7 +279,7 @@ class _MyJournalState extends State<MyJournal> {
                                           width: 120,
                                           height: 30,
                                           child: DropdownButtonFormField(
-                                            value: _selectedMood,
+                                            initialValue: _selectedMood,
                                             icon: const Icon(
                                               Icons.arrow_drop_down,
                                               color: AppColors.pink,
@@ -265,8 +297,7 @@ class _MyJournalState extends State<MyJournal> {
                                                 borderRadius:
                                                     BorderRadius.circular(8),
                                                 borderSide: const BorderSide(
-                                                  color: AppColors
-                                                      .darkPink,
+                                                  color: AppColors.darkPink,
                                                 ),
                                               ),
                                               enabledBorder: OutlineInputBorder(
@@ -287,6 +318,7 @@ class _MyJournalState extends State<MyJournal> {
                                               // This is called when the user selects an item.
                                               setState(() {
                                                 _selectedMood = value!;
+                                                debugPrint(_selectedMood);
                                               });
                                             },
                                             items: moods.map((String value) {
@@ -308,6 +340,26 @@ class _MyJournalState extends State<MyJournal> {
                           ],
                         ),
                       ),
+                    ),
+                  ),
+                ),
+
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: ListView.builder(
+                      itemCount: journalEntries.length,
+                      itemBuilder: (context, index) {
+                        return JournalCard(
+                          title: journalEntries[index]['title'],
+                          content: journalEntries[index]['content'],
+                          category: journalEntries[index]['category'],
+                          mood: journalEntries[index]['mood'],
+                          onPressed: () {},
+                          onDelete: () {},
+                          onBookmarked: () {},
+                        );
+                      },
                     ),
                   ),
                 ),

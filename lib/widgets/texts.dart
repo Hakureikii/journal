@@ -5,12 +5,14 @@ class JakartaText extends StatelessWidget {
   final FontWeight? fontWeight;
   final Color? color;
   final double? fontSize;
+  final TextOverflow? overflow;
   const JakartaText({
     super.key,
     required this.text,
     this.fontWeight,
     this.color,
-    this.fontSize
+    this.fontSize,
+    this.overflow,
   });
 
   @override
@@ -22,23 +24,25 @@ class JakartaText extends StatelessWidget {
         fontFamily: 'PlusJakartaSans',
         fontWeight: fontWeight,
         color: color,
+        overflow: overflow,
       ),
     );
   }
 }
-
 
 class PlayFairText extends StatelessWidget {
   final String text;
   final FontWeight? fontWeight;
   final Color? color;
   final double? fontSize;
+  final TextOverflow? overflow;
   const PlayFairText({
     super.key,
     required this.text,
     this.fontWeight,
     this.color,
-    this.fontSize
+    this.fontSize,
+    this.overflow,
   });
 
   @override
@@ -50,6 +54,7 @@ class PlayFairText extends StatelessWidget {
         fontFamily: 'PlayFair',
         fontWeight: fontWeight,
         color: color,
+        overflow: overflow,
       ),
     );
   }
@@ -60,12 +65,14 @@ class JetBrainsText extends StatelessWidget {
   final FontWeight? fontWeight;
   final Color? color;
   final double? fontSize;
+  final TextOverflow? overflow;
   const JetBrainsText({
     super.key,
     required this.text,
     this.fontWeight,
     this.color,
-    this.fontSize
+    this.fontSize,
+    this.overflow,
   });
 
   @override
@@ -77,6 +84,7 @@ class JetBrainsText extends StatelessWidget {
         fontFamily: 'JetBrains',
         fontWeight: fontWeight,
         color: color,
+        overflow: overflow,
       ),
     );
   }

@@ -7,4 +7,5 @@ class AppColors {
   static const Color lightpink = Color(0xFFFF87A7);
   static const Color lighterPink = Color(0xFFFFA6BE);
   static const Color transparentPink = Color.fromARGB(255, 255, 228, 235);
+  static const Color whitePink = Color.fromARGB(255, 252, 241, 244);
 }
