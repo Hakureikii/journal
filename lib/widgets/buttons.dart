@@ -34,27 +34,35 @@ class Buttons extends StatelessWidget {
   }
 }
 
-// class StarredButton extends StatefulWidget {
-//   final VoidCallback onPressed;
-//   final Widget label;
-//   const StarredButton({
-//     super.key,
-//     required this.label,
-//     required this.onPressed,
-//   });
+class CancelButton extends StatelessWidget {
+  final VoidCallback onPressed;
+  final Widget label;
+  final Widget icon;
 
-//   @override
-//   State<StarredButton> createState() => _StarredButtonState();
-// }
+  const CancelButton({
+    super.key,
+    required this.onPressed,
+    required this.label,
+    required this.icon,
+  });
 
-// class _StarredButtonState extends State<StarredButton> {
-//   @override
-//   Widget build(BuildContext context) {
-//     return OutlinedButton.icon(
-//       style: ButtonStyle(),
-//       onPressed: widget.onPressed,
-//       label: widget.label,
-//       icon: Icon(Icons.bookmark, color: AppColors.darkPink,),
-//     );
-//   }
-// }
+  @override
+  Widget build(BuildContext context) {
+    return OutlinedButton.icon(
+      onPressed: onPressed,
+      label: label,
+      icon: icon,
+      style: OutlinedButton.styleFrom(
+        side: const BorderSide(color: AppColors.darkPink, width: 1),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadiusGeometry.all(Radius.circular(8)),
+        ),
+        textStyle: const TextStyle(
+          fontFamily: 'PlusJakartaSans',
+          fontWeight: FontWeight.bold,
+        ),
+        foregroundColor: AppColors.darkPink,
+      ),
+    );
+  }
+}

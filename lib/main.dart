@@ -94,7 +94,13 @@ class _MyJournalState extends State<MyJournal> {
   Widget _renderRightContent() {
     switch (render) {
       case 'writeNote':
-        return WriteNote(onCancel: cancelWriteNote);
+        return WriteNote(onCancel: cancelWriteNote, saveNote: () {});
+
+      case 'displayNote':
+        return SizedBox();
+
+      case 'editNote':
+        return SizedBox();
       default:
         return HomeScreen(onWriteNote: writeNote);
     }
