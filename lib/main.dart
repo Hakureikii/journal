@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import './screens/home_screen.dart';
+import './screens/write_note.dart';
 import 'widgets/texts.dart';
 import 'widgets/buttons.dart';
 import 'widgets/journal_card.dart';
@@ -20,6 +22,8 @@ class MyJournal extends StatefulWidget {
 
 class _MyJournalState extends State<MyJournal> {
   // VARIABLES
+
+  String? render;
 
   final List<Map<String, dynamic>> journalEntries = [
     {
@@ -75,6 +79,27 @@ class _MyJournalState extends State<MyJournal> {
     'Gratitude',
   ];
 
+  void writeNote() {
+    setState(() {
+      render = 'writeNote';
+    });
+  }
+
+  void cancelWriteNote() {
+    setState(() {
+      render = null;
+    });
+  }
+
+  Widget _renderRightContent() {
+    switch (render) {
+      case 'writeNote':
+        return WriteNote(onCancel: cancelWriteNote);
+      default:
+        return HomeScreen(onWriteNote: writeNote);
+    }
+  }
+
   @override
   void dispose() {
     _scrollController.dispose();
@@ -117,7 +142,7 @@ class _MyJournalState extends State<MyJournal> {
         ),
         actions: [
           Buttons(
-            onPressed: () {},
+            onPressed: writeNote,
             icon: const Icon(Icons.add),
             label: const Text('Write Note'),
           ),
@@ -376,71 +401,7 @@ class _MyJournalState extends State<MyJournal> {
             ),
           ),
 
-          // Right side
-          SizedBox(
-            width: MediaQuery.sizeOf(context).width * 0.64,
-            height: double.infinity,
-            child: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SizedBox(
-                    width: 120,
-                    height: 120,
-                    child: const Card(
-                      elevation: 5,
-                      color: AppColors.transparentPink,
-                      child: Icon(
-                        Icons.drive_file_rename_outline,
-                        size: 90,
-                        color: AppColors.darkPink,
-                      ),
-                    ),
-                  ),
-
-                  SizedBox(height: 20),
-
-                  const PlayFairText(
-                    text: 'Your Sweet Safe Space',
-                    fontSize: FontSize.big,
-                    fontWeight: FontWeight.bold,
-                  ),
-
-                  const SizedBox(
-                    child: JakartaText(
-                      text:
-                          'Capture daily moments, express pure feelings, and look back with gratitude.',
-                      color: AppColors.pink,
-                      fontSize: FontSize.medium,
-                    ),
-                  ),
-
-                  const SizedBox(
-                    child: JakartaText(
-                      text: 'Let your mind flourish',
-                      color: AppColors.darkPink,
-                      fontSize: FontSize.medium,
-                    ),
-                  ),
-
-                  const SizedBox(height: 20),
-
-                  SizedBox(
-                    width: 300,
-                    height: 40,
-                    child: Buttons(
-                      onPressed: () {},
-                      icon: const Icon(Icons.add),
-                      label: const JakartaText(
-                        text: 'Write A Journal Today',
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
+          _renderRightContent(),
         ],
       ),
     );
